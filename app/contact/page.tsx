@@ -9,17 +9,70 @@ import { toast } from "sonner";
 
 export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    message: ""
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    toast.success("Message sent successfully! We'll get back to you soon.");
-    setIsSubmitting(false);
-    (e.target as HTMLFormElement).reset();
+    try {
+      // Professional delay for UX
+      await new Promise(resolve => setTimeout(resolve, 800));
+
+      const { firstName, lastName, email, phone, message } = formData;
+
+      // Construct the professional WhatsApp message
+      const whatsappMessage = `Hello Dentkraft,
+
+New Contact Inquiry:
+
+First Name: ${firstName}
+Last Name: ${lastName}
+Email: ${email}
+Phone: ${phone}
+
+Message:
+${message}
+
+Please contact me regarding my inquiry.`;
+
+      // Encode the message for URL
+      const encodedMessage = encodeURIComponent(whatsappMessage);
+      
+      // Target WhatsApp URL (using the resolved phone number for reliable dynamic text support)
+      const whatsappUrl = `https://wa.me/918655024880?text=${encodedMessage}`;
+
+      // Open WhatsApp in a new tab
+      window.open(whatsappUrl, "_blank");
+
+      toast.success("Redirecting to WhatsApp...");
+      
+      // Reset form after a small delay
+      setTimeout(() => {
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          message: ""
+        });
+        setIsSubmitting(false);
+      }, 1000);
+    } catch (error) {
+      toast.error("Something went wrong. Please try again.");
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -103,27 +156,64 @@ export default function ContactPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-slate-700">First Name</label>
-                  <Input required className="h-12 rounded-xl bg-white" placeholder="John" />
+                  <Input 
+                    required 
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    className="h-12 rounded-xl bg-white" 
+                    placeholder="John" 
+                  />
                 </div>
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-slate-700">Last Name</label>
-                  <Input required className="h-12 rounded-xl bg-white" placeholder="Doe" />
+                  <Input 
+                    required 
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    className="h-12 rounded-xl bg-white" 
+                    placeholder="Doe" 
+                  />
                 </div>
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium text-slate-700">Email Address</label>
-                <Input required type="email" className="h-12 rounded-xl bg-white" placeholder="john@example.com" />
+                <Input 
+                  required 
+                  type="email" 
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="h-12 rounded-xl bg-white" 
+                  placeholder="john@example.com" 
+                />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium text-slate-700">Phone Number</label>
-                <Input required type="tel" className="h-12 rounded-xl bg-white" placeholder="(555) 123-4567" />
+                <Input 
+                  required 
+                  type="tel" 
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className="h-12 rounded-xl bg-white" 
+                  placeholder="(555) 123-4567" 
+                />
               </div>
               <div className="space-y-2">
                 <label className="text-sm font-medium text-slate-700">Message</label>
-                <Textarea required className="min-h-[150px] rounded-xl bg-white resize-none" placeholder="How can we help you?" />
+                <Textarea 
+                  required 
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  className="min-h-[150px] rounded-xl bg-white resize-none" 
+                  placeholder="How can we help you?" 
+                />
               </div>
               <Button type="submit" disabled={isSubmitting} className="w-full h-14 rounded-full text-lg shadow-md hover:shadow-xl transition-all">
-                {isSubmitting ? <><Loader2 className="mr-2 h-5 w-5 animate-spin"/> Sending...</> : "Send Message"}
+                {isSubmitting ? <><Loader2 className="mr-2 h-5 w-5 animate-spin"/> Processing...</> : "Send Message"}
               </Button>
             </form>
           </div>
