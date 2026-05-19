@@ -56,22 +56,30 @@ export default function AppointmentPage() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true);
     try {
-      const response = await fetch("/api/appointment", {
+      const submitData = new FormData();
+      submitData.append("access_key", "66c70e56-a50e-4a32-8eda-7ec0a5d5d586");
+      submitData.append("subject", "New Appointment Request - Dentkraft Dental");
+      submitData.append("first_name", values.patientName);
+      submitData.append("email", values.email);
+      submitData.append("phone", values.phone);
+      submitData.append("appointment_date", format(values.date, "PPP"));
+      submitData.append("appointment_time", "To be confirmed");
+      submitData.append("message", `Service: ${values.service}${values.notes ? `\nNotes: ${values.notes}` : ""}`);
+
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...values,
-          date: values.date.toISOString(),
-        }),
+        body: submitData,
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to book appointment");
-      }
+      const result = await response.json();
 
-      setSuccess(true);
-      toast.success("Appointment booked successfully! We will contact you soon to confirm the time.");
-      form.reset();
+      if (result.success) {
+        setSuccess(true);
+        toast.success("Your appointment request has been submitted successfully. We will contact you shortly.");
+        form.reset();
+      } else {
+        throw new Error(result.message || "Submission failed");
+      }
     } catch (error) {
       toast.error("Failed to book appointment. Please try again or call us directly.");
     } finally {

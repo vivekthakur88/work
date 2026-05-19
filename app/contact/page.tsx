@@ -27,50 +27,39 @@ export default function ContactPage() {
     setIsSubmitting(true);
     
     try {
-      // Professional delay for UX
-      await new Promise(resolve => setTimeout(resolve, 800));
-
       const { firstName, lastName, email, phone, message } = formData;
 
-      // Construct the professional WhatsApp message
-      const whatsappMessage = `Hello Dentkraft,
+      const submitData = new FormData();
+      submitData.append("access_key", "66c70e56-a50e-4a32-8eda-7ec0a5d5d586");
+      submitData.append("subject", "New Contact Inquiry - Dentkraft Dental");
+      submitData.append("first_name", firstName);
+      submitData.append("last_name", lastName);
+      submitData.append("email", email);
+      submitData.append("phone", phone);
+      submitData.append("message", message);
 
-New Contact Inquiry:
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: submitData,
+      });
 
-First Name: ${firstName}
-Last Name: ${lastName}
-Email: ${email}
-Phone: ${phone}
+      const result = await response.json();
 
-Message:
-${message}
-
-Please contact me regarding my inquiry.`;
-
-      // Encode the message for URL
-      const encodedMessage = encodeURIComponent(whatsappMessage);
-      
-      // Target WhatsApp URL (using the resolved phone number for reliable dynamic text support)
-      const whatsappUrl = `https://wa.me/917977433521?text=${encodedMessage}`;
-
-      // Open WhatsApp in a new tab
-      window.open(whatsappUrl, "_blank");
-
-      toast.success("Redirecting to WhatsApp...");
-      
-      // Reset form after a small delay
-      setTimeout(() => {
+      if (result.success) {
+        toast.success("Your message has been sent successfully. We will contact you shortly.");
         setFormData({
           firstName: "",
           lastName: "",
           email: "",
           phone: "",
-          message: ""
+          message: "",
         });
-        setIsSubmitting(false);
-      }, 1000);
+      } else {
+        throw new Error(result.message || "Submission failed");
+      }
     } catch (error) {
       toast.error("Something went wrong. Please try again.");
+    } finally {
       setIsSubmitting(false);
     }
   };
