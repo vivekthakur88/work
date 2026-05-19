@@ -9,8 +9,8 @@ import { Toaster } from "@/components/ui/sonner";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Dentkraft Dental Clinics - Premium Dental Care",
-  description: "Experience luxury dental care with modern technology. We offer teeth whitening, implants, braces, and more.",
+  title: "Dentazone - Advanced Dental Care",
+  description: "Experience luxury dental care with modern technology. We offer teeth whitening, implants, braces, and more in Thane.",
 };
 
 export default function RootLayout({
