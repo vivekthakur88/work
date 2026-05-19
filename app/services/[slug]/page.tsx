@@ -187,7 +187,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
             </Button>
             <div className="mt-4 text-center">
               <span className="text-sm text-slate-500">Or call us: </span>
-              <a href="tel:+1234567890" className="text-sm font-bold text-slate-900 hover:text-blue-600 transition-colors">(555) 123-4567</a>
+              <a href="tel:+917977433521" className="text-sm font-bold text-slate-900 hover:text-blue-600 transition-colors">+91 79774 33521</a>
             </div>
           </div>
         </div>

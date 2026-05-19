@@ -43,9 +43,9 @@ export const Navbar = () => {
               </Link>
             ))}
             <div className="flex items-center space-x-4 ml-4">
-              <a href="tel:+1234567890" className="flex items-center text-sm font-medium text-slate-700 hover:text-blue-600">
+              <a href="tel:+917977433521" className="flex items-center text-sm font-medium text-slate-700 hover:text-blue-600">
                 <Phone className="w-4 h-4 mr-2" />
-                (555) 123-4567
+                +91 79774 33521
               </a>
               <Button asChild className="rounded-full shadow-md hover:shadow-lg transition-all">
                 <Link href="/appointment">Book Appointment</Link>
@@ -84,9 +84,9 @@ export const Navbar = () => {
                 </Link>
               ))}
               <div className="pt-4 px-3 flex flex-col space-y-3">
-                <a href="tel:+1234567890" className="flex items-center text-base font-medium text-slate-700">
+                <a href="tel:+917977433521" className="flex items-center text-base font-medium text-slate-700">
                   <Phone className="w-5 h-5 mr-2" />
-                  (555) 123-4567
+                  +91 79774 33521
                 </a>
                 <Button asChild className="w-full rounded-full">
                   <Link href="/appointment" onClick={() => setIsOpen(false)}>Book Appointment</Link>

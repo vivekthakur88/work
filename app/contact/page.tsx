@@ -51,7 +51,7 @@ Please contact me regarding my inquiry.`;
       const encodedMessage = encodeURIComponent(whatsappMessage);
       
       // Target WhatsApp URL (using the resolved phone number for reliable dynamic text support)
-      const whatsappUrl = `https://wa.me/918655024880?text=${encodedMessage}`;
+      const whatsappUrl = `https://wa.me/917977433521?text=${encodedMessage}`;
 
       // Open WhatsApp in a new tab
       window.open(whatsappUrl, "_blank");
@@ -113,8 +113,8 @@ Please contact me regarding my inquiry.`;
                 <div>
                   <h3 className="text-xl font-bold text-slate-900 mb-2">Phone & WhatsApp</h3>
                   <p className="text-slate-600 leading-relaxed">
-                    Main: (555) 123-4567<br/>
-                    Emergency: (555) 987-6543
+                    Main: +91 79774 33521<br/>
+                    WhatsApp: +91 79774 33521
                   </p>
                 </div>
               </div>
@@ -198,7 +198,7 @@ Please contact me regarding my inquiry.`;
                   value={formData.phone}
                   onChange={handleChange}
                   className="h-12 rounded-xl bg-white" 
-                  placeholder="(555) 123-4567" 
+                  placeholder="+91 79774 33521" 
                 />
               </div>
               <div className="space-y-2">

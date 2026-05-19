@@ -147,7 +147,7 @@ export default function AppointmentPage() {
                     <FormItem>
                       <FormLabel>Phone Number</FormLabel>
                       <FormControl>
-                        <Input placeholder="(555) 123-4567" {...field} className="h-12 rounded-xl" />
+                        <Input placeholder="+91 79774 33521" {...field} className="h-12 rounded-xl" />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
